@@ -1,0 +1,109 @@
+{
+  "nodes": [
+    {
+      "id": "dept_api",
+      "type": "text",
+      "text": "### Department API\n- `POST /api/departments` - Create\n- `GET /api/departments/{id}` - Get by ID\n- `GET /api/departments` - Get All\n- `PUT /api/departments/{id}` - Update\n- `DELETE /api/departments/{id}` - Delete",
+      "x": -400,
+      "y": 0,
+      "width": 300,
+      "height": 250,
+      "color": "1"
+    },
+    {
+      "id": "emp_api",
+      "type": "text",
+      "text": "### Employee API\n- `POST /api/employees` - Create\n- `GET /api/employees/{id}` - Get by ID\n- `PUT /api/employees/{id}` - Update\n- `DELETE /api/employees/{id}` - Delete\n- `GET /api/employees` - Get All (Paged)\n- `GET /api/employees/departments/{id}` - Filter by Dept",
+      "x": -400,
+      "y": 300,
+      "width": 300,
+      "height": 300,
+      "color": "2"
+    },
+    {
+      "id": "client",
+      "type": "text",
+      "text": "# Client\n(Frontend / Postman / Mobile)",
+      "x": 0,
+      "y": 250,
+      "width": 200,
+      "height": 100
+    },
+    {
+      "id": "controllers",
+      "type": "text",
+      "text": "# Controllers\n- DepartmentController\n- EmployeeController\n*(Handles HTTP Requests)*",
+      "x": 300,
+      "y": 250,
+      "width": 200,
+      "height": 150
+    },
+    {
+      "id": "services",
+      "type": "text",
+      "text": "# Services\n- DepartmentService\n- EmployeeService\n*(Business Logic)*",
+      "x": 600,
+      "y": 250,
+      "width": 200,
+      "height": 150
+    },
+    {
+      "id": "repos",
+      "type": "text",
+      "text": "# Repositories\n- DepartmentRepo\n- EmployeeRepo\n*(Data Access)*",
+      "x": 900,
+      "y": 250,
+      "width": 200,
+      "height": 150
+    },
+    {
+      "id": "database",
+      "type": "text",
+      "text": "# Database\n(MySQL / H2)\n- Table: Departments\n- Table: Employees",
+      "x": 1200,
+      "y": 250,
+      "width": 200,
+      "height": 150,
+      "color": "4"
+    },
+    {
+      "id": "flow_title",
+      "type": "text",
+      "text": "## Application Flow Diagram",
+      "x": 0,
+      "y": 150,
+      "width": 1400,
+      "height": 60
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge1",
+      "fromNode": "client",
+      "fromSide": "right",
+      "toNode": "controllers",
+      "toSide": "left"
+    },
+    {
+      "id": "edge2",
+      "fromNode": "controllers",
+      "fromSide": "right",
+      "toNode": "services",
+      "toSide": "left"
+    },
+    {
+      "id": "edge3",
+      "fromNode": "services",
+      "fromSide": "right",
+      "toNode": "repos",
+      "toSide": "left"
+    },
+    {
+      "id": "edge4",
+      "fromNode": "repos",
+      "fromSide": "right",
+      "toNode": "database",
+      "toSide": "left"
+    }
+  ]
+}
