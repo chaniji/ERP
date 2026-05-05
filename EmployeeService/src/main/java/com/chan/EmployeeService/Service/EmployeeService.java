@@ -81,6 +81,7 @@ public class EmployeeService {
         return maptoResponse(ERepo.save(saved));
     }
 
+    @Cacheable(value = "employees", key = "0")
     public Page<EmployeeResponse> getAllEmployee(Pageable pageable) {
         return ERepo.findAll(pageable).map(this::maptoResponse);
     }
