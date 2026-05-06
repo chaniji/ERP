@@ -18,5 +18,5 @@ public class InventoryResponse {
     private String location;
     private LocalDateTime createdAt;
     private LocalDateTime updateAt;
-    private boolean inStock;
+    private Boolean instock;
 }

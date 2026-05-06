@@ -40,4 +40,6 @@ public class Inventory {
     @LastModifiedDate
     @Field("update_at")
     private LocalDateTime updatedAt;
+
+    private Boolean instock;
 }
