@@ -1,0 +1,22 @@
+@startuml
+start
+:Receive EmployeeRequest;
+:Validate Request Body;
+if (Is Request Valid?) then (yes)
+  :Fetch Department by ID;
+  if (Department exists?) then (yes)
+    :Map Request to Employee Entity;
+    :Set Department to Employee;
+    :Save Employee to Repository;
+    :Map Entity to EmployeeResponse;
+    :Return Created Response (201);
+  else (no)
+    :Throw ResourceNotFoundException;
+    :GlobalExceptionHandler catches error;
+    :Return Error Response (404);
+  endif
+else (no)
+  :Return Bad Request (400);
+endif
+stop
+@enduml

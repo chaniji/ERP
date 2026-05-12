@@ -1,0 +1,53 @@
+
+
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                            Receive EmployeeRequest
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                       Validate Request Body
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                            yes                          Is Request Valid?                                                                                   no
+
+
+
+                                                                                                                                                                     Fetch Department by ID                                                                                                                                                                                                                                                                                                                                 Return Bad Request (400)
+
+
+
+
+                                                                                                                                                         yes                          Department exists?                                                                                              no
+
+
+
+                       Map Request to Employee Entity                                                                                                                                                                                                       Throw ResourceNotFoundException
+
+
+
+
+
+                                Set Department to Employee                                                                                                                                                                                           GlobalExceptionHandler catches error
+
+
+
+
+
+                                Save Employee to Repository                                                                                                                                                                                                                     Return Error Response (404)
+
+
+
+
+                    Map Entity to EmployeeResponse
+
+
+
+
+
+                         Return Created Response (201)
