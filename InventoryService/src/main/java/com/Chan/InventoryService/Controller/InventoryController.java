@@ -25,19 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/inventory")
 @RequiredArgsConstructor
-@Tag(name = "Inventory Api", description = "CRUD operation for Inventory")
+@Tag(name = "Inventory API", description = "CRUD operations for Inventory")
 public class InventoryController {
 
     private final InventoryService inventoryService;
 
     @GetMapping
-    @Operation(summary = "Get all items in Inventory")
+    @Operation(summary = "Get all items in inventory")
     public ResponseEntity<List<InventoryResponse>> getAllInventory() {
         return ResponseEntity.ok(inventoryService.getAllInventory());
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get Inventory by  id ")
+    @Operation(summary = "Get inventory by ID")
     public ResponseEntity<InventoryResponse> getInventoryById(
         @PathVariable String id
     ) {
@@ -45,7 +45,7 @@ public class InventoryController {
     }
 
     @GetMapping("/product/{productId}")
-    @Operation(summary = "Get Inventory by Product id")
+    @Operation(summary = "Get inventory by product ID")
     public ResponseEntity<InventoryResponse> getInventoryByProductId(
         @PathVariable String productId
     ) {
@@ -55,7 +55,7 @@ public class InventoryController {
     }
 
     @PostMapping
-    @Operation(summary = "Creating Products")
+    @Operation(summary = "Create a new inventory item")
     public ResponseEntity<InventoryResponse> createInventory(
         @Valid @RequestBody InventoryRequest request
     ) {
@@ -64,7 +64,7 @@ public class InventoryController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update a product by Id")
+    @Operation(summary = "Update an inventory item by ID")
     public ResponseEntity<InventoryResponse> updateInventory(
         @PathVariable String id,
         @Valid @RequestBody InventoryRequest request
@@ -73,7 +73,7 @@ public class InventoryController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete a Product by Id")
+    @Operation(summary = "Delete an inventory item by ID")
     public ResponseEntity<MessageResponse> deleteInventory(
         @PathVariable String id
     ) {
@@ -84,7 +84,7 @@ public class InventoryController {
     }
 
     @PatchMapping("/{id}/stock")
-    @Operation(summary = "Update a Stock By Id")
+    @Operation(summary = "Update stock quantity by ID")
     public ResponseEntity<InventoryResponse> updateStock(
         @PathVariable String id,
         @RequestParam int quantity
@@ -93,7 +93,7 @@ public class InventoryController {
     }
 
     @GetMapping("/low-stock")
-    @Operation(summary = "Get a lowest Stocks")
+    @Operation(summary = "Get low stock items")
     public ResponseEntity<List<InventoryResponse>> getLowStockItems() {
         return ResponseEntity.ok(inventoryService.getLowStockItems());
     }
