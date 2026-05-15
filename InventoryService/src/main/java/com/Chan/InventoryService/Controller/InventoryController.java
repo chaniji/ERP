@@ -4,6 +4,8 @@ import com.Chan.InventoryService.DataTransferObjects.InventoryRequest;
 import com.Chan.InventoryService.DataTransferObjects.InventoryResponse;
 import com.Chan.InventoryService.DataTransferObjects.MessageResponse;
 import com.Chan.InventoryService.Service.InventoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,52 +25,75 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/inventory")
 @RequiredArgsConstructor
+@Tag(name = "Inventory Api", description = "CRUD operation for Inventory")
 public class InventoryController {
 
     private final InventoryService inventoryService;
 
     @GetMapping
+    @Operation(summary = "Get all items in Inventory")
     public ResponseEntity<List<InventoryResponse>> getAllInventory() {
         return ResponseEntity.ok(inventoryService.getAllInventory());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InventoryResponse> getInventoryById(@PathVariable String id) {
+    @Operation(summary = "Get Inventory by  id ")
+    public ResponseEntity<InventoryResponse> getInventoryById(
+        @PathVariable String id
+    ) {
         return ResponseEntity.ok(inventoryService.getInventoryById(id));
     }
 
     @GetMapping("/product/{productId}")
-    public ResponseEntity<InventoryResponse> getInventoryByProductId(@PathVariable String productId) {
-        return ResponseEntity.ok(inventoryService.getInventoryByProductId(productId));
+    @Operation(summary = "Get Inventory by Product id")
+    public ResponseEntity<InventoryResponse> getInventoryByProductId(
+        @PathVariable String productId
+    ) {
+        return ResponseEntity.ok(
+            inventoryService.getInventoryByProductId(productId)
+        );
     }
 
     @PostMapping
-    public ResponseEntity<InventoryResponse> createInventory(@Valid @RequestBody InventoryRequest request) {
+    @Operation(summary = "Creating Products")
+    public ResponseEntity<InventoryResponse> createInventory(
+        @Valid @RequestBody InventoryRequest request
+    ) {
         InventoryResponse created = inventoryService.createInventory(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a product by Id")
     public ResponseEntity<InventoryResponse> updateInventory(
-            @PathVariable String id,
-            @Valid @RequestBody InventoryRequest request) {
+        @PathVariable String id,
+        @Valid @RequestBody InventoryRequest request
+    ) {
         return ResponseEntity.ok(inventoryService.updateInventory(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MessageResponse> deleteInventory(@PathVariable String id) {
+    @Operation(summary = "Delete a Product by Id")
+    public ResponseEntity<MessageResponse> deleteInventory(
+        @PathVariable String id
+    ) {
         inventoryService.deleteInventory(id);
-        return ResponseEntity.ok(new MessageResponse("Inventory deleted successfully"));
+        return ResponseEntity.ok(
+            new MessageResponse("Inventory deleted successfully")
+        );
     }
 
     @PatchMapping("/{id}/stock")
+    @Operation(summary = "Update a Stock By Id")
     public ResponseEntity<InventoryResponse> updateStock(
-            @PathVariable String id,
-            @RequestParam int quantity) {
+        @PathVariable String id,
+        @RequestParam int quantity
+    ) {
         return ResponseEntity.ok(inventoryService.updateStock(id, quantity));
     }
 
     @GetMapping("/low-stock")
+    @Operation(summary = "Get a lowest Stocks")
     public ResponseEntity<List<InventoryResponse>> getLowStockItems() {
         return ResponseEntity.ok(inventoryService.getLowStockItems());
     }
