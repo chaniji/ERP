@@ -1,5 +1,6 @@
 package com.Chan.InventoryService.Entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "inventories")
-public class Inventory {
+public class Inventory implements Serializable {
 
     @Id
     private String id;

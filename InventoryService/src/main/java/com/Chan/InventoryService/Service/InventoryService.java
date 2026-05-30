@@ -8,6 +8,7 @@ import com.Chan.InventoryService.Repository.InventoryRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,21 +17,29 @@ public class InventoryService {
 
     private final InventoryRepository IRepo;
 
+    @Cacheable(value = "Inventories", key = "0")
     public List<InventoryResponse> getAllInventory() {
-        return IRepo.findAll().stream()
+        return IRepo.findAll()
+            .stream()
             .map(this::maptoResponse)
             .collect(Collectors.toList());
     }
 
+    @Cacheable(value = "Inventories", key = "#id")
     public InventoryResponse getInventoryById(String id) {
-        Inventory I = IRepo.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id: " + id));
+        Inventory I = IRepo.findById(id).orElseThrow(() ->
+            new ResourceNotFoundException("Inventory not found with id: " + id)
+        );
         return maptoResponse(I);
     }
 
+    @Cacheable(value = "Inventories", key = "#productId")
     public InventoryResponse getInventoryByProductId(String productId) {
-        Inventory I = IRepo.findByProductId(productId)
-            .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with productId: " + productId));
+        Inventory I = IRepo.findByProductId(productId).orElseThrow(() ->
+            new ResourceNotFoundException(
+                "Inventory not found with productId: " + productId
+            )
+        );
         return maptoResponse(I);
     }
 
@@ -46,9 +55,13 @@ public class InventoryService {
         return maptoResponse(saved);
     }
 
-    public InventoryResponse updateInventory(String id, InventoryRequest request) {
-        Inventory I = IRepo.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id: " + id));
+    public InventoryResponse updateInventory(
+        String id,
+        InventoryRequest request
+    ) {
+        Inventory I = IRepo.findById(id).orElseThrow(() ->
+            new ResourceNotFoundException("Inventory not found with id: " + id)
+        );
         I.setProductName(request.getProductName());
         I.setQuantity(request.getQuantity());
         I.setPrice(request.getPrice());
@@ -60,14 +73,17 @@ public class InventoryService {
 
     public void deleteInventory(String id) {
         if (!IRepo.existsById(id)) {
-            throw new ResourceNotFoundException("Inventory not found with id: " + id);
+            throw new ResourceNotFoundException(
+                "Inventory not found with id: " + id
+            );
         }
         IRepo.deleteById(id);
     }
 
     public InventoryResponse updateStock(String id, int quantity) {
-        Inventory I = IRepo.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id: " + id));
+        Inventory I = IRepo.findById(id).orElseThrow(() ->
+            new ResourceNotFoundException("Inventory not found with id: " + id)
+        );
         I.setQuantity(quantity);
         I.setInstock(quantity > 0);
         Inventory updated = IRepo.save(I);
@@ -76,7 +92,8 @@ public class InventoryService {
 
     public List<InventoryResponse> getLowStockItems() {
         final int LOW_STOCK_THRESHOLD = 10;
-        return IRepo.findByQuantityLessThan(LOW_STOCK_THRESHOLD).stream()
+        return IRepo.findByQuantityLessThan(LOW_STOCK_THRESHOLD)
+            .stream()
             .map(this::maptoResponse)
             .collect(Collectors.toList());
     }
