@@ -1,0 +1,15 @@
+type Query {
+    allReports: [Report]
+    reportById(id: ID!): Report
+}
+
+type Report {
+    id: ID
+    title: String
+    content: String
+    createdAt: String
+}
+
+type Mutation {
+    createReport(title: String!, content: String!): Report
+}
