@@ -54,6 +54,12 @@ public class EmployeeService {
             new ResourcenotfoundException("Id Could not found" + id)
         );
         ERepo.delete(saved);
+        eventProducer.sendEmployeeEvent(new EmployeeEvent(
+            saved.getId().toString(),
+            "DELETED",
+            "Employee Deleted: " + saved.getFirstName() + " " + saved.getLastName(),
+            saved.getEmail()
+        ));
         return new MessageResponse("Deleted Successfully");
     }
 
@@ -104,6 +110,11 @@ public class EmployeeService {
             Emp.getLastName(),
             Emp.getSalary(),
             Emp.getJoinDate(),
+            Emp.getDepartment().getId()
+        );
+    }
+}
+      Emp.getJoinDate(),
             Emp.getDepartment().getId()
         );
     }

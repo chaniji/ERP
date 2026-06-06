@@ -126,6 +126,12 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+        <!-- Kafka: For publishing events -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
         <!-- Testing: Specialized test starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

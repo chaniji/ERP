@@ -87,6 +87,14 @@ public class InventoryService {
         I.setQuantity(quantity);
         I.setInstock(quantity > 0);
         Inventory updated = IRepo.save(I);
+        if (quantity < 10) {
+            eventProducer.sendInventoryEvent(new InventoryEvent(
+                updated.getId(),
+                "LOW_STOCK",
+                "Low Stock Alert: " + updated.getProductName() + " (Only " + quantity + " left)",
+                "manager@erp.com"
+            ));
+        }
         return maptoResponse(updated);
     }
 

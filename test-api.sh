@@ -7,6 +7,7 @@ EMPLOYEE_URL="http://localhost:8082/api/employees"
 INVENTORY_URL="http://localhost:8083/api/inventory"
 PAYROLL_URL="http://localhost:8084/api/payroll"
 REPORT_URL="http://localhost:8085/graphql"
+NOTIFY_URL="http://localhost:8086/api/notify"
 
 echo "------------------------------------------------"
 echo "ERP System API Testing Script"
@@ -48,9 +49,15 @@ curl -s -X GET "$PAYROLL_URL" -H "Authorization: Bearer $TOKEN" | head -n 5
 echo -e "\n[5] Testing Report Service (GraphQL)..."
 curl -s -X POST "$REPORT_URL" \
   -H "Content-Type: application/json" \
-  -d '{"query": "{ allReports { id title createdAt } }"}'
+  -d '{"query": "{ dashboardSummary { totalEmployees totalInventoryItems lowStockCount } }"}'
 
-echo -e "\n\n[6] Testing Gateway (Port 9191)..."
+# 6. Notification Service
+echo -e "\n[6] Testing Notification Service (Manual Email)..."
+curl -s -X POST "$NOTIFY_URL/email" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"chan@example.com", "message":"Test notification from script", "type":"TEST"}'
+
+echo -e "\n\n[7] Testing Gateway (Port 9191)..."
 echo "Testing Auth via Gateway: $GATEWAY_URL/auth/login"
 curl -s -o /dev/null -w "Gateway Auth Status: %{http_code}\n" -X POST "$GATEWAY_URL/auth/login" \
   -H "Content-Type: application/json" \
