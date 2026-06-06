@@ -11,6 +11,8 @@
 /home/chan/Works/MicroServices_Project/EmployeeService/src/main/java/com/chan/EmployeeService/Entity/Employee.java
 /home/chan/Works/MicroServices_Project/EmployeeService/src/main/java/com/chan/EmployeeService/Exceptions/GlobalExceptionHandler.java
 /home/chan/Works/MicroServices_Project/EmployeeService/src/main/java/com/chan/EmployeeService/Exceptions/ResourcenotfoundException.java
+/home/chan/Works/MicroServices_Project/EmployeeService/src/main/java/com/chan/EmployeeService/Kafka/EmployeeEvent.java
+/home/chan/Works/MicroServices_Project/EmployeeService/src/main/java/com/chan/EmployeeService/Kafka/EmployeeEventProducer.java
 /home/chan/Works/MicroServices_Project/EmployeeService/src/main/java/com/chan/EmployeeService/Repository/DepartmentRepo.java
 /home/chan/Works/MicroServices_Project/EmployeeService/src/main/java/com/chan/EmployeeService/Repository/EmployeeRepo.java
 /home/chan/Works/MicroServices_Project/EmployeeService/src/main/java/com/chan/EmployeeService/Service/DepartmentService.java
